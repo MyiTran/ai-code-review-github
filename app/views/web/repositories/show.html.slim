@@ -31,13 +31,6 @@
           i.bi.bi-github.me-1
           = @repository[:full_name]
 
-        span
-          i class="bi #{@repository[:visibility] == 'Private' ? 'bi-lock' : 'bi-globe'} me-1"
-          = @repository[:visibility]
-
-        span
-          i.bi.bi-diagram-3.me-1
-          = @repository[:default_branch]
 
   .d-flex.flex-wrap.gap-2
     a.btn.btn-light[

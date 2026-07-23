@@ -1,4 +1,5 @@
 class Web::ReviewsController < Web::BaseController
+
   def index
     reviews = Mock::Reviews.all
 
@@ -19,6 +20,7 @@ class Web::ReviewsController < Web::BaseController
     @review = Mock::Reviews.find(params[:id])
 
     raise ActiveRecord::RecordNotFound, "Review not found" unless @review
+
   end
 
   private
