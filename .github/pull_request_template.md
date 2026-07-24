@@ -1,6 +1,1 @@
 ## Summary
--
-## Changes
--
-## Screenshots
--
