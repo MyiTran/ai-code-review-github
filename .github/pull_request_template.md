@@ -1,5 +1,2 @@
 ## Summary
- 
-## Changes
 
-## Screenshots
