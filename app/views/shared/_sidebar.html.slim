@@ -11,7 +11,7 @@ aside.app-sidebar
       p.sidebar-label Workspace
 
       = link_to root_path,
-          class: "sidebar-link #{'active' if controller_name == 'dashboard'}" do
+          class: "sidebar-link #{'active' if controller_name == 'dashboard' && !controller_path.start_with?('web/admin/')}" do
         i.bi.bi-grid
         span Dashboard
 
@@ -36,10 +36,17 @@ aside.app-sidebar
         i.bi.bi-credit-card
         span Billing
 
+      .sidebar-divider
+
+      = link_to admin_root_path,
+          class: "sidebar-link #{'active' if controller_path.start_with?('web/admin/')}" do
+        i.bi.bi-shield-lock
+        span Admin
+
     .sidebar-user
       .d-flex.align-items-center.gap-3
         span.avatar
-         = @current_mock_user[:initials]
+          = @current_mock_user[:initials]
 
         .overflow-hidden
           p.mb-0.text-white.fw-semibold.small.text-truncate

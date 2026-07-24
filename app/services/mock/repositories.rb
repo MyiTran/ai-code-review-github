@@ -3,6 +3,7 @@ module Mock
     DATA = [
       {
         id: 1,
+        user_id: 1,
         name: "ai-code-review-github",
         full_name: "MyiTran/ai-code-review-github",
         description: "AI-powered code review service built with Ruby on Rails.",
@@ -62,6 +63,7 @@ module Mock
 
       {
         id: 2,
+        user_id: 1,
         name: "darling-web",
         full_name: "MyiTran/darling-web",
         description: "Playwright automation and visual testing project.",
@@ -109,6 +111,7 @@ module Mock
 
       {
         id: 3,
+        user_id: 1,
         name: "rails-learning",
         full_name: "MyiTran/rails-learning",
         description: "Ruby on Rails learning exercises and examples.",
@@ -144,6 +147,7 @@ module Mock
 
       {
         id: 4,
+        user_id: 1,
         name: "portfolio",
         full_name: "MyiTran/portfolio",
         description: "Personal portfolio and professional experience.",
@@ -179,6 +183,7 @@ module Mock
 
       {
         id: 5,
+        user_id: 1,
         name: "sample-react-app",
         full_name: "MyiTran/sample-react-app",
         description: "Example React application for frontend experiments.",

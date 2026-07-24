@@ -15,20 +15,21 @@ Rails.application.routes.draw do
   end
 
   scope module: :web do
-  root "dashboard#index"
+    root "dashboard#index"
 
-  get "dashboard", to: "dashboard#index"
+    get "dashboard", to: "dashboard#index"
 
-  resources :repositories, only: %i[index show]
+    resources :repositories, only: %i[index show]
 
-  resources :reviews, only: %i[index show]
+    resources :reviews, only: %i[index show]
 
-  resource :settings, only: :show
-  end
+    resource :settings, only: :show
 
-  namespace :admin do
-    resources :users
-  end
+    namespace :admin do
+      root "dashboard#index"
+      resources :users, only: :index
+    end
+  end 
 
   namespace :api do
     namespace :v1 do

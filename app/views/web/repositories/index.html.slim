@@ -3,7 +3,10 @@
     h1.page-title Repositories
 
     p.page-description
-      | Connect repositories and configure automatic AI code review.
+      - if @selected_user.present?
+        | Repositories connected by #{@selected_user[:name]}.
+      - else
+        | Connect repositories and configure automatic AI code review.
 
   button.btn.btn-primary.px-4.py-2.rounded-3 type="button"
     i.bi.bi-plus-lg.me-2
@@ -15,6 +18,8 @@
         method: :get,
         local: true,
         class: "row g-3 align-items-end" do |form|
+      - if params[:user_id].present?
+        = form.hidden_field :user_id, value: params[:user_id]
 
       .col-12.col-xl-4
         = form.label :query,
@@ -99,7 +104,7 @@
           - @repositories.each do |repository|
             tr
               td
-                = link_to repository_path(repository[:id]),
+                = link_to repository_path(repository[:id], user_id: params[:user_id]),
                     class: "repository-name-link" do
                   .d-flex.align-items-center.gap-3
                     span.repository-icon
@@ -136,7 +141,7 @@
                    input.form-check-input.ai-review-toggle type="checkbox" role="switch" checked=repository[:auto_review_enabled] disabled=disconnected data-status-target="auto-review-status-#{repository[:id]}" aria-label="Toggle AI review for #{repository[:name]}"
 
                  span.small.fw-semibold id="auto-review-status-#{repository[:id]}" class=status_class
-                  = status_text
+                      = status_text
 
               td
                 - if repository[:connection_status] == "Connected"
@@ -152,7 +157,7 @@
                 = repository[:last_reviewed_at]
 
               td.text-end
-                = link_to repository_path(repository[:id]),
+                = link_to repository_path(repository[:id], user_id: params[:user_id]),
                     class: "btn btn-sm btn-light",
                     aria: { label: "View #{repository[:name]}" } do
                   i.bi.bi-chevron-right
@@ -168,5 +173,5 @@
         | Try changing or clearing your search filters.
 
       = link_to "Clear filters",
-          repositories_path,
+          repositories_path(user_id: params[:user_id]),
           class: "btn btn-primary"

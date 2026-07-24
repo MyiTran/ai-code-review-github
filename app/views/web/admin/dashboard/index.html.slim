@@ -144,8 +144,9 @@
 
             input.form-control.border-start-0.ps-0 type="search" placeholder="Search users"
 
-          button.btn.btn-light.btn-sm type="button"
-            | View all
+          = link_to "View all",
+            admin_users_path,
+            class: "btn btn-light btn-sm"
 
       .table-responsive
         table.table.mb-0
@@ -168,11 +169,13 @@
                       = user[:initials]
 
                     div
-                      p.mb-1.fw-semibold.text-dark
-                        = user[:name]
+                      = link_to repositories_path(user_id: user[:id]),
+                            class: "text-decoration-none" do
+                        p.mb-1.fw-semibold.text-dark
+                            = user[:name]
 
-                      p.mb-0.text-secondary.small
-                        = user[:email]
+                        p.mb-0.text-secondary.small
+                            = user[:email]
 
                 td
                   - if user[:plan] == "Team"
@@ -238,8 +241,6 @@
 
       p.mb-0.mt-1.text-secondary.small
         | Latest AI jobs processed across the platform.
-
-    = link_to "View application reviews", reviews_path, class: "btn btn-light btn-sm"
 
   .table-responsive
     table.table.mb-0

@@ -2,6 +2,14 @@ class Web::RepositoriesController < Web::BaseController
   def index
     repositories = Mock::Repositories.all
 
+    if params[:user_id].present?
+      @selected_user = find_selected_user
+
+      repositories = repositories.select do |repository|
+        repository[:user_id].to_s == params[:user_id].to_s
+      end
+    end
+
     @languages = repositories
       .map { |repository| repository[:language] }
       .uniq
@@ -20,10 +28,26 @@ class Web::RepositoriesController < Web::BaseController
 
     raise ActiveRecord::RecordNotFound, "Repository not found" unless @repository
 
+    if params[:user_id].present?
+      @selected_user = find_selected_user
+
+      raise ActiveRecord::RecordNotFound, "User not found" unless @selected_user
+
+      if @repository[:user_id].to_s != params[:user_id].to_s
+        raise ActiveRecord::RecordNotFound, "Repository not found"
+      end
+    end
+
     @review_history = filter_review_history(@repository[:review_history])
   end
 
   private
+
+  def find_selected_user
+    Mock::AdminDashboard
+      .data[:users]
+      .find { |user| user[:id].to_s == params[:user_id].to_s }
+  end
 
   def filter_repositories(repositories)
     result = repositories

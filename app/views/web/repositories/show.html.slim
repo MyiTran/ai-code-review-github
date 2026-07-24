@@ -1,5 +1,5 @@
 .mb-4
-  = link_to repositories_path,
+  = link_to repositories_path(user_id: params[:user_id]),
       class: "text-decoration-none text-secondary small" do
     i.bi.bi-arrow-left.me-2
     | Back to repositories
@@ -139,6 +139,8 @@
             method: :get,
             local: true,
             class: "repository-review-search-form" do |form|
+          - if params[:user_id].present?
+            = form.hidden_field :user_id, value: params[:user_id]
 
           .input-group.repository-review-search
             span.input-group-text.bg-white.border-end-0
@@ -150,7 +152,7 @@
                 class: "form-control border-start-0 ps-0"
 
             - if params[:review_query].present?
-              = link_to repository_path(@repository[:id]),
+              = link_to repository_path(@repository[:id], user_id: params[:user_id]),
                   class: "btn btn-light border",
                   title: "Clear search" do
                 i.bi.bi-x-lg
@@ -172,7 +174,7 @@
               - @review_history.each do |review|
                 tr
                   td
-                    = link_to review_path(review[:id]),
+                    = link_to review_path(review[:id], repository_id: @repository[:id], user_id: params[:user_id]),
                         class: "text-decoration-none text-dark" do
                       p.mb-1.fw-semibold
                         | ##{review[:pull_request_number]} #{review[:title]}
