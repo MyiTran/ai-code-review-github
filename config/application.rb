@@ -9,7 +9,7 @@ require 'action_controller/railtie'
 require 'action_mailer/railtie'
 # require 'action_mailbox/engine'
 # require 'action_text/engine'
-# require 'action_view/railtie'
+require 'action_view/railtie'
 require 'action_cable/engine'
 
 # Require the gems listed in Gemfile, including any gems
@@ -18,6 +18,15 @@ Bundler.require(*Rails.groups)
 
 module GoRailsApi
   class Application < Rails::Application
+
+    config.active_record.encryption.primary_key =
+      ENV["ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY"]
+
+    config.active_record.encryption.deterministic_key =
+      ENV["ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY"]
+
+    config.active_record.encryption.key_derivation_salt =
+      ENV["ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT"]
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
@@ -37,7 +46,7 @@ module GoRailsApi
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
-    config.api_only = true
+    config.api_only = false
 
     # Overrides module
     overrides = "#{Rails.root}/app/overrides"
@@ -50,8 +59,6 @@ module GoRailsApi
 
     # Using session middlewares
     config.session_store :cookie_store, key: '_go_rails'
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore
 
     # Set default url options
     routes.default_url_options = {

@@ -14,8 +14,18 @@ Rails.application.routes.draw do
     get "disk/:encoded_key/*filename" => "active_storage/disk#show", as: :rails_disk_service
   end
 
+  root "home#index"
+
+  # Web authentication with GitHub
+  devise_for :users,
+             singular: :user,
+             only: %i[sessions omniauth_callbacks],
+             controllers: {
+               sessions: "users/sessions",
+               omniauth_callbacks: "users/omniauth_callbacks"
+             }
+
   scope module: :web do
-    root "dashboard#index"
 
     get "dashboard", to: "dashboard#index"
 
@@ -43,8 +53,6 @@ Rails.application.routes.draw do
 
           resource :password, only: %i[create update]
         end
-
-        devise_for :users, singular: :user, skip: :all
 
         resource :profile, only: %i[show update]
       end

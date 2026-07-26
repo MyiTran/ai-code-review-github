@@ -1,0 +1,19 @@
+.container.py-5
+  .row.justify-content-center
+    .col-12.col-md-8.col-lg-5
+      .text-center
+        .mb-4
+          span.auth-logo
+            i.bi.bi-stars
+
+        h1.fw-bold.mb-3 AI Review
+
+        p.text-secondary.mb-4
+          | Automated AI code reviews for every pull request.
+
+        = button_to user_github_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "btn btn-dark w-100 py-3" do
+         i.bi.bi-github.me-2
+         | Continue with GitHub
+
+        p.text-secondary.small.mt-3.mb-0
+          | Sign in securely with your GitHub account.

@@ -1,6 +1,6 @@
 module Web
   module Admin
-    class DashboardController < Web::BaseController
+    class DashboardController < Web::Admin::BaseController
       def index
         @admin = Mock::AdminDashboard.data
       end

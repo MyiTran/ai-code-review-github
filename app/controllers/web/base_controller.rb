@@ -1,13 +1,15 @@
 class Web::BaseController < ActionController::Base
-  layout "application"
+  layout "web"
 
-  protect_from_forgery with: :exception
+  helper UsersHelper
 
-  before_action :set_mock_current_user
-
+  before_action :authenticate_user!
   private
 
-  def set_mock_current_user
-    @current_mock_user = Mock::CurrentUser.call
+  def require_admin!
+    return if current_user.admin?
+
+    redirect_to dashboard_path,
+                alert: "You are not authorized to access this page."
   end
 end

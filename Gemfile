@@ -26,6 +26,8 @@ gem 'rswag'
 gem 'lograge'
 gem 'sentry-ruby'
 gem 'sentry-rails'
+gem "omniauth-github"
+gem "omniauth-rails_csrf_protection"
 
 group :development, :test do
   gem 'pry'

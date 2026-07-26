@@ -1,5 +1,6 @@
-class HomeController < ApplicationController
+class HomeController < ActionController::Base
+  layout "application"
+
   def index
-    render json: { app: 'go-rails-api', version: '0.0.1' }
   end
 end
